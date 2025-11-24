@@ -1,6 +1,9 @@
 
 # Practical Report: End-to-End Testing of React Quiz Application
 
+## Repository Link
+[https://github.com/NamgyelHuk708/SWE302_PA1_reactquiz](https://github.com/NamgyelHuk708/SWE302_PA1_reactquiz)
+
 ## Objective
 
 The aim of this practical is to implement automated end-to-end testing for a React quiz application using Playwright, integrate CI/CD workflows, and enable automated notifications. Intended learning outcomes include:
@@ -128,8 +131,5 @@ All test cases passed successfully in the GitHub Actions CI pipeline:
 Automated notifications triggered via push/commit events:
 ![alt text](assets/2.png)
 
-## Repository Link
-
-[https://github.com/NamgyelHuk708/SWE302_PA1_reactquiz](https://github.com/NamgyelHuk708/SWE302_PA1_reactquiz)
 
 
