@@ -7,6 +7,9 @@ The aim of this practical is to implement and test a CRUD API in Go, measure cod
 - Writing unit tests for handlers
 - Measuring and interpreting code coverage
 
+### Link to the repo: 
+https://github.com/NamgyelHuk708/SWE302_PA2
+
 ## Requirements & Setup
 
 **Tools & Technologies:**
@@ -105,7 +108,6 @@ All unit tests passed:
 Test cases executed and coverage report generated:
 ![alt text](assets/1.png)
 
-[https://github.com/NamgyelHuk708/SS2025_SWE302/tree/main/practical_2](https://github.com/NamgyelHuk708/SS2025_SWE302/tree/main/practical_2)
----
+
 
 
