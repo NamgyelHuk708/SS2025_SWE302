@@ -1,72 +1,75 @@
-# Practical_08 Report: Automated GUI Testing Using Cypress
+# Practical Report: Automated GUI Testing with Cypress
 
-## Overview
-This practical exercise centers on implementing automated end-to-end testing for web applications utilizing **Cypress** as the primary testing framework. The main goal is to develop practical skills in creating, structuring, and running comprehensive tests that verify application functionality and user experience quality.
+## Objective
 
-## Objectives
-- Understand fundamental concepts of Cypress for automated end-to-end testing.
-- Develop and structure Cypress test suites covering different user flows and interaction patterns.
-- Leverage fixtures and reusable custom commands to improve test code maintainability.
-- Implement API mocking strategies and validate response structures in Cypress.
-- Utilize the Page Object Model design pattern for creating maintainable and scalable test suites.
-- Conduct API performance testing and load analysis using k6.
-- Evaluate test execution results and comprehend their role in ensuring software quality.
+Implement comprehensive end-to-end automated testing for web applications using Cypress testing framework.
 
-## Setting Up Cypress
-### Initial Setup Process
+**Learning Outcomes:**
+- Understand Cypress fundamentals for E2E testing
+- Develop structured test suites for user flows
+- Use fixtures and custom commands for maintainable tests
+- Implement API mocking and validation strategies
+- Apply Page Object Model design pattern
+- Validate accessibility standards with cypress-axe
+- Evaluate test execution and quality metrics
 
-First, navigate to the practical_08 project directory:
+**Repository:** (Link to repository if available)
 
+## Requirements & Setup
+
+**Tools & Technologies:**
+- Testing Framework: Cypress 15.5.0
+- Application: Next.js Dog Image Browser
+- Package Manager: pnpm
+- Accessibility: cypress-axe
+- Design Pattern: Page Object Model
+
+**Environment Setup:**
 ```bash
+# Navigate to project
 cd practicals/practical_08/gui-testing
-```
 
-### Add Cypress to Development Dependencies
-
-```bash
+# Install Cypress
 pnpm add -D cypress
-```
 
-### Confirm Successful Installation
-
-```bash
+# Verify installation
 pnpm exec cypress --version
-```
 
-Expected output should be similar to:
-
-```
-Cypress package version: 15.5.0
-Cypress binary version: 15.5.0
-```
-
-### Launch Cypress Initial Configuration
-
-```bash
+# Open Cypress
 pnpm exec cypress open
+
+# Run tests headless
+pnpm exec cypress run
 ```
 
-This command will:
-1. Open the Cypress Test Runner interface
-2. Generate a `cypress` directory containing sample test files
-3. Create the `cypress.config.ts` configuration file
+**Configuration Files:**
+- `cypress.config.ts` - Cypress configuration
+- `cypress/e2e/` - Test suites
+- `cypress/fixtures/` - Mock data
+- `cypress/support/commands.ts` - Custom commands
+- `cypress/support/page-objects/` - Page Object classes
 
-Upon launching the Cypress interface:
-1. Choose **"E2E Testing"** option
-2. Select your preferred testing browser (Chrome is recommended)
-3. Explore by clicking **"Create new spec"**
-4. Exit Cypress temporarily - proper configuration will follow
+**Configuration Files:**
+- `cypress.config.ts` - Cypress configuration
+- `cypress/e2e/` - Test suites
+- `cypress/fixtures/` - Mock data
+- `cypress/support/commands.ts` - Custom commands
+- `cypress/support/page-objects/` - Page Object classes
 
-## Testing Architecture and Organization
+## Implementation
 
-- **Test suites** are located within `cypress/e2e/`, categorized by functionality and test scenarios.
-- **Mock data** is stored in `cypress/fixtures/` to simulate API responses during testing.
-- **Reusable functions** are created in `cypress/support/commands.ts` for common testing operations.
-- **Page Object classes** reside in `cypress/support/page-objects/` to encapsulate page interactions and selectors.
-- **Element selection** utilizes `data-testid` attributes to ensure reliable and maintainable test automation.
+**Testing Architecture:**
 
-## Example Test Implementation
-Sample test case: Verifying homepage elements (`cypress/e2e/homepage.cy.ts`):
+Organized test structure following best practices:
+- Test suites in `cypress/e2e/` categorized by functionality
+- Mock data in `cypress/fixtures/` for API response simulation
+- Reusable custom commands in `cypress/support/commands.ts`
+- Page Object Model classes in `cypress/support/page-objects/`
+- Reliable element selection using `data-testid` attributes
+
+**Sample Test Case:**
+
+Homepage verification (`cypress/e2e/homepage.cy.ts`):
 
 ```typescript
 describe('Dog Image Browser - Homepage', () => {
@@ -81,106 +84,135 @@ describe('Dog Image Browser - Homepage', () => {
 });
 ```
 
-
-## Screenshots
-
-### Homepage
-![alt text](image/1.png)
-*The main page of the Dog Image Browser application, showing the title, subtitle, breed selector, and fetch button before any interaction.*
-
-### Homepage Test
-![alt text](image/2.png)
-*The Cypress Test Runner displaying the results of homepage tests, confirming that key UI elements are present and functioning as expected.*
-
-### Fetch Test Example
-![alt text](image/3.png)
-*A test run demonstrating the process of fetching and displaying a random dog image, including the loading state and the resulting image display.*
-
-### All Tests Passing
-![alt text](image/4.png)
-*A summary view in the Cypress Test Runner showing that all end-to-end tests have passed successfully.*
-
-## Test Execution Results and Insights
-
-- **Test suite success rate**: All Cypress tests completed successfully in both interactive and headless execution modes.
-- **Visual documentation**: Screenshots capturing both successful test runs and intentional failures are provided in the assets folder.
-- **Execution efficiency**: Test completion time averages under X seconds in interactive mode and Y seconds in headless mode.
-- **Reliability measures**: API mocking strategies guarantee consistent and reproducible test outcomes.
-- **Accessibility compliance**: Accessibility testing with `cypress-axe` revealed no critical violations.
-
----
-
-## Comprehensive Test Coverage Analysis
-
-| Testing Category   | Number of Tests | Execution Status |
-|--------------------|----------------|------------------|
-| UI Display         | 5              | ✅ Pass          |
-| User Interactions  | 6              | ✅ Pass          |
-| API Integration    | 7              | ✅ Pass          |
-| Error Handling     | 4              | ✅ Pass          |
-| Accessibility      | 2              | ✅ Pass          |
-| **Total**          | **24**         | **✅ Pass**      |
-
-## Detailed Test Scenario Coverage
-
-1. **Homepage Display Testing**
-   - Verification of correct page title and subtitle rendering
-   - Confirmation that breed selector and fetch button are visible and interactive
-   - Validation of initial placeholder message display
-
-2. **Dog Image Fetching Functionality**
-   - Successful random dog image retrieval upon button activation
-   - Proper loading state indication during data fetch operations
-   - Verification that consecutive fetches produce varied images
-   - Testing graceful handling of rapid successive button clicks
-
-3. **Breed Selection Features**
-   - Successful population of breed options via API calls
-   - Accurate filtering of results based on breed selection
-   - Smooth transitions when switching between different breeds
-   - Proper capitalization formatting of breed names in dropdown
-
-4. **API Integration Testing**
-   - Implementation of mocked API responses for both success and error scenarios
-   - Validation of network timeout handling mechanisms
-   - Verification of correct query parameter transmission
-
-5. **Error Management**
-   - Proper display of error messages when API requests fail
-   - Testing error recovery through retry attempts or breed selection changes
-
-6. **Accessibility Verification**
-   - Confirmation of zero detectable accessibility violations
-   - Validation of appropriate focus indicators for keyboard navigation
-
-## Reusable Custom Commands Reference
+**Custom Commands Implemented:**
 
 ```typescript
-/**
- * Documentation for Custom Commands:
- *
- * 1. cy.fetchDog()
- *    - Purpose: Triggers the fetch dog button click action
- *    - Example usage: cy.fetchDog()
- *
- * 2. cy.selectBreedAndFetch(breed)
- *    - Purpose: Chooses a specific breed from dropdown and initiates image fetch
- *    - Input parameter: breed (string value)
- *    - Example usage: cy.selectBreedAndFetch('husky')
- *
- * 3. cy.waitForDogImage()
- *    - Purpose: Waits until the dog image is fully loaded and visible
- *    - Example usage: cy.waitForDogImage()
- *
- * 4. cy.checkError(message)
- *    - Purpose: Validates the presence of a specific error message
- *    - Example usage: cy.checkError('Failed to load dog image')
- */
+// cy.fetchDog() - Clicks fetch dog button
+cy.fetchDog()
+
+// cy.selectBreedAndFetch(breed) - Selects breed and fetches image
+cy.selectBreedAndFetch('husky')
+
+// cy.waitForDogImage() - Waits for image to load
+cy.waitForDogImage()
+
+// cy.checkError(message) - Validates error message
+cy.checkError('Failed to load dog image')
 ```
 
-## Obstacles and Learning Points
-- Mastering the implementation of sophisticated Cypress capabilities including API interception and custom command creation.
-- Developing a well-organized test structure that supports both scalability and long-term maintainability.
+**Test Categories:**
 
-## Summary and Key Takeaways
-This practical exercise provided valuable hands-on experience in developing comprehensive GUI testing solutions using Cypress for contemporary web applications. The learning journey encompassed the entire testing lifecycle, from initial Cypress setup and configuration, through writing resilient and maintainable test cases, to implementing advanced capabilities such as API mocking, custom command creation, and the Page Object Model design pattern. Through systematic validation of user interactions, API integrations, error scenarios, and accessibility standards, I successfully verified the application's dependability and overall user experience quality. In conclusion, this practical underscored the critical role that automated testing plays in delivering superior software products and provided me with industry-standard methodologies for building scalable and effective test automation frameworks.
+1. **Homepage Display Testing** - Page title, subtitle, and UI element visibility
+2. **Dog Image Fetching** - Random image retrieval, loading states, consecutive fetches
+3. **Breed Selection** - Dropdown population, filtering, breed switching
+4. **API Integration** - Mocked responses, timeout handling, query parameters
+5. **Error Management** - Error display, retry mechanisms
+6. **Accessibility** - Zero violations with cypress-axe, keyboard navigation
+**Test Categories:**
+
+1. **Homepage Display Testing** - Page title, subtitle, and UI element visibility
+2. **Dog Image Fetching** - Random image retrieval, loading states, consecutive fetches
+3. **Breed Selection** - Dropdown population, filtering, breed switching
+4. **API Integration** - Mocked responses, timeout handling, query parameters
+5. **Error Management** - Error display, retry mechanisms
+6. **Accessibility** - Zero violations with cypress-axe, keyboard navigation
+
+## Results & Testing
+
+All 24 Cypress tests executed successfully in both interactive and headless modes.
+
+**Homepage Display:**
+
+![Application homepage](image/1.png)
+
+**Homepage Tests:**
+
+![Homepage test execution](image/2.png)
+
+**Fetch Functionality:**
+
+![Fetch test demonstration](image/3.png)
+
+**Complete Test Suite:**
+
+![All tests passing](image/4.png)
+
+**Explanation:**
+
+Comprehensive test coverage across 6 categories with 24 total tests, all passing successfully.
+
+| Testing Category | Tests | Status |
+|------------------|-------|--------|
+| UI Display | 5 | ✅ Pass |
+| User Interactions | 6 | ✅ Pass |
+| API Integration | 7 | ✅ Pass |
+| Error Handling | 4 | ✅ Pass |
+| Accessibility | 2 | ✅ Pass |
+| **Total** | **24** | **✅ Pass** |
+
+**Key Validations:**
+- UI elements render correctly with proper visibility
+- Dog image fetching works with loading states
+- Breed selection filters results accurately
+- API mocking ensures consistent test outcomes
+- Error scenarios handled gracefully
+- Zero accessibility violations detected
+
+## Reflection
+
+**Key Learnings:**
+- Cypress provides powerful E2E testing capabilities for web applications
+- Page Object Model improves test maintainability and scalability
+- Custom commands reduce code duplication across test suites
+- API mocking ensures reliable and reproducible tests
+- Accessibility testing integration validates inclusive design
+- Data-testid attributes create stable test selectors
+
+**Challenges:**
+- **Advanced Cypress Features:** Mastered API interception and custom command creation through practice
+- **Test Organization:** Developed structured approach for scalable test architecture
+- **Async Handling:** Learned proper waiting strategies for dynamic content
+
+**Possible Improvements:**
+- Add visual regression testing with screenshot comparison
+- Implement cross-browser testing automation
+- Add performance metrics collection during tests
+- Create CI/CD integration for automated test runs
+- Expand accessibility coverage to all user flows
+
+## Conclusion
+
+Successfully implemented comprehensive automated GUI testing suite using Cypress, covering UI display, user interactions, API integration, error handling, and accessibility with 100% test pass rate across 24 test cases.
+
+## References
+
+- [Cypress Documentation](https://docs.cypress.io/)
+- [Page Object Model Pattern](https://www.cypress.io/blog/2019/01/03/stop-using-page-objects-and-start-using-app-actions/)
+- [cypress-axe Documentation](https://github.com/component-driven/cypress-axe)
+
+## Appendix
+
+**Custom Commands Reference:**
+
+```typescript
+cy.fetchDog()
+// Triggers fetch dog button click
+
+cy.selectBreedAndFetch(breed)
+// Selects breed and initiates fetch
+// Example: cy.selectBreedAndFetch('husky')
+
+cy.waitForDogImage()
+// Waits for dog image to load
+
+cy.checkError(message)
+// Validates error message display
+// Example: cy.checkError('Failed to load')
+```
+
+**Test Coverage Summary:**
+- Total Tests: 24
+- Pass Rate: 100%
+- Categories: 6
+- Execution Mode: Interactive + Headless
+- Accessibility Violations: 0

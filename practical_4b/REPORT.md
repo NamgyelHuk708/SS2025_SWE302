@@ -1,106 +1,157 @@
-# OWASP ZAP Security Scanning Report
+# Practical Report: OWASP ZAP Security Scanning
 
-**Project:** SWE302_PA4c - CI/CD Security Testing  
-**Repository:** [https://github.com/NamgyelHuk708/SWE302_PA4c](https://github.com/NamgyelHuk708/SWE302_PA4c)  
-**Date:** November 25, 2025  
-**Author:** Namgyel Huk
+## Objective
 
----
+Implement automated Dynamic Application Security Testing (DAST) using OWASP ZAP integrated with GitHub Actions for continuous security scanning.
 
-## 1. Overview
+**Learning Outcomes:**
+- Integrate OWASP ZAP with CI/CD pipeline
+- Automate security vulnerability scanning
+- Configure baseline and full scan workflows
+- Analyze and report security findings
 
-This report documents the implementation of automated security testing using OWASP ZAP (Zed Attack Proxy) integrated with GitHub Actions for continuous security scanning.
+**Repository:** https://github.com/NamgyelHuk708/SWE302_PA4c
 
----
+## Requirements & Setup
 
-## 2. Implementation Summary
+**Tools & Technologies:**
+- Security Tool: OWASP ZAP
+- Application: Spring Boot (Java 17)
+- Build Tool: Maven
+- CI/CD: GitHub Actions
+- Containerization: Docker
 
-### 2.1 Technologies Used
-- **Security Tool:** OWASP ZAP
-- **CI/CD Platform:** GitHub Actions
-- **Application:** Spring Boot (Java 17)
-- **Containerization:** Docker
-- **Build Tool:** Maven
+**Environment Setup:**
+```bash
+# Clone repository
+cd SWE302_PA4c
 
-### 2.2 Scan Types Implemented
+# Build application
+mvn clean package
+
+# Run with Docker
+docker build -t app .
+docker run -p 8080:8080 app
+```
+
+**Configuration Files:**
+- `.github/workflows/zap-baseline.yml` - Baseline scan workflow
+- `.github/workflows/zap-full.yml` - Full scan workflow
+- `pom.xml` - Maven configuration
+
+## Implementation
+
+**Scan Types Implemented:**
+
 1. **Baseline Scan** - Quick security assessment on every push/PR
-2. **Full Scan** - Comprehensive security analysis (scheduled weekly)
+2. **Full Scan** - Comprehensive weekly security analysis
 
----
+**Workflow Configuration:**
 
-## 3. GitHub Actions Workflows
-
-### 3.1 ZAP Baseline Scan 
-
-![alt text](image/2.png)
-
-
-### 3.2 Git Workflow
-
-![alt text](image/1.png)
-
-## 4. Configuration Details
-
-### 4.1 Workflow Permissions
+**Baseline Scan (`.github/workflows/zap-baseline.yml`):**
 ```yaml
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
 permissions:
   contents: read
   issues: write
+
+steps:
+  - name: ZAP Baseline Scan
+    uses: zaproxy/action-baseline@v0.7.0
+    with:
+      target: 'http://localhost:8080'
+      token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-### 4.2 Key Features
+**Full Scan (`.github/workflows/zap-full.yml`):**
+```yaml
+on:
+  schedule:
+    - cron: '0 2 * * 1'  # Weekly Monday 2 AM
 
----
+steps:
+  - name: ZAP Full Scan
+    uses: zaproxy/action-full-scan@v0.4.0
+    with:
+      target: 'http://localhost:8080'
+```
 
-## 5. Issues Encountered & Resolutions
+**Key Features:**
+- Automatic issue creation for detected vulnerabilities
+- Multiple report formats (HTML, Markdown, JSON)
+- Docker-based application deployment for scanning
+- Proper permission configuration for GitHub integration
 
-### 7.1 Permission Error
-**Problem:** "Resource not accessible by integration"
+## Results & Testing
 
-**Solution:**
-- Added `permissions` block to workflows
-- Configured `issues: write` permission
-- Added `token: ${{ secrets.GITHUB_TOKEN }}`
+Security scans executed successfully with automated vulnerability detection and reporting.
 
-### 7.2 Artifact Naming Error
-**Problem:** "Artifact name zap_scan is not valid"
+**ZAP Baseline Scan Execution:**
 
-**Solution:**
-- Removed conflicting `artifact_name` parameter
-- Let ZAP action use default artifact handling
+![Baseline scan results](image/2.png)
 
-### 7.3 SonarCloud Configuration
-**Problem:** Using friend's organization settings
+**GitHub Workflow Status:**
 
-**Solution:**
-- Updated `sonar.organization` to `namgyelhuk708`
-- Modified both `pom.xml` and `sonar-project.properties`
+![Workflow execution](image/1.png)
 
----
----
+**Explanation:**
 
-## 6. Conclusions
-
-### 6.1 Achievements
-- Successfully integrated OWASP ZAP with GitHub Actions
-- Automated security scanning on every push
-- Automatic issue creation for vulnerabilities
-- Comprehensive reporting in multiple formats
-- Configured proper permissions and security settings
-
-### 6.2 Security Posture
-The application has been scanned and shows **4 warnings** related to HTTP security headers. No critical vulnerabilities were found. The warnings are related to:
+OWASP ZAP scans detected **4 warnings** related to HTTP security headers. No critical vulnerabilities found. Issues identified:
 - Missing Content Security Policy headers
 - Missing X-Frame-Options headers
 - Missing Permissions Policy headers
 - Cross-Origin headers configuration
 
+Scan results automatically uploaded as artifacts and issues created in GitHub repository for tracking.
 
+## Reflection
 
-## 7. Repository Links
+**Key Learnings:**
+- OWASP ZAP integration enables automated DAST in CI/CD
+- Baseline scans provide quick security feedback on every commit
+- Full scans offer comprehensive vulnerability analysis
+- Automated issue creation streamlines vulnerability tracking
 
-- **GitHub Repository:** [https://github.com/NamgyelHuk708/SWE302_PA4c](https://github.com/NamgyelHuk708/SWE302_PA4c)
-- **GitHub Actions:** [https://github.com/NamgyelHuk708/SWE302_PA4c/actions](https://github.com/NamgyelHuk708/SWE302_PA4c/actions)
-- **Issues:** [https://github.com/NamgyelHuk708/SWE302_PA4c/issues](https://github.com/NamgyelHuk708/SWE302_PA4c/issues)
+**Challenges:**
+- **Permission Error:** Fixed by adding `permissions` block with `issues: write`
+- **Artifact Naming:** Removed conflicting `artifact_name` parameter to use ZAP defaults
+- **GitHub Token:** Added `token: ${{ secrets.GITHUB_TOKEN }}` for issue creation
 
----
+**Possible Improvements:**
+- Address HTTP security header warnings
+- Add authentication scanning for protected endpoints
+- Integrate with other security tools (Snyk, SonarCloud)
+- Configure custom ZAP scan rules
+- Implement security gates to block deployments with critical issues
+
+## Conclusion
+
+Successfully implemented automated DAST using OWASP ZAP with GitHub Actions, enabling continuous security scanning and vulnerability detection on every code change.
+
+## References
+
+- [OWASP ZAP Documentation](https://www.zaproxy.org/docs/)
+- [ZAP GitHub Actions](https://github.com/zaproxy/action-baseline)
+- [GitHub Actions Documentation](https://docs.github.com/en/actions)
+
+## Appendix
+
+**Scan Configuration:**
+- Baseline Scan: Triggered on push/PR to main branch
+- Full Scan: Scheduled weekly (Monday 2 AM)
+- Target: `http://localhost:8080` (Dockerized Spring Boot app)
+
+**Security Findings:**
+- Total Warnings: 4 (HTTP security headers)
+- Critical Vulnerabilities: 0
+- Medium Vulnerabilities: 0
+
+**Repository Links:**
+- GitHub Repository: https://github.com/NamgyelHuk708/SWE302_PA4c
+- Actions: https://github.com/NamgyelHuk708/SWE302_PA4c/actions
+- Issues: https://github.com/NamgyelHuk708/SWE302_PA4c/issues

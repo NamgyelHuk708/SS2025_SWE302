@@ -2,13 +2,14 @@
 
 ## Objective
 
-The aim of this practical is to implement and test a CRUD API in Go, measure code coverage, and analyze results. Intended learning outcomes include:
+Implement and test a CRUD API in Go with code coverage analysis.
+
+**Learning Outcomes:**
 - Building and testing Go APIs
 - Writing unit tests for handlers
 - Measuring and interpreting code coverage
 
-### Link to the repo: 
-https://github.com/NamgyelHuk708/SWE302_PA2
+**Repository:** https://github.com/NamgyelHuk708/SWE302_PA2
 
 ## Requirements & Setup
 
@@ -22,76 +23,74 @@ https://github.com/NamgyelHuk708/SWE302_PA2
 # Clone the repository
 cd Swe302_p2
 
-# Install dependencies
-# (Go modules are used, dependencies managed via go.mod)
-
 # Run tests with coverage
 go test -coverprofile=coverage.out
 
 # View coverage report in browser
 go tool cover -html=coverage.out
 ```
-Configuration files:
-- `go.mod`, `go.sum` for dependency management
-- `coverage.out` for coverage data
+
+**Configuration Files:**
+- `go.mod`, `go.sum` - Dependency management
+- `coverage.out` - Coverage data
 
 ## Implementation
 
-1. **Project Structure:**
-   - `main.go`: Entry point for the API
-   - `handlers.go`: Contains CRUD handler functions
-   - `handlers_test.go`: Unit tests for handlers
+**Project Structure:**
+- `main.go` - API entry point
+- `handlers.go` - CRUD handler functions
+- `handlers_test.go` - Unit tests
 
-2. **Test Development:**
-   - Wrote unit tests for each handler in `handlers_test.go`.
-   - Example test snippet:
-     ```go
-     // handlers_test.go
-     func TestCreateItem(t *testing.T) {
-         // ...setup code...
-         err := CreateItem(...)
-         if err != nil {
-             t.Errorf("expected no error, got %v", err)
-         }
-     }
-     ```
+**Test Development:**
 
-3. **Coverage Analysis:**
-   - Used `go test -coverprofile=coverage.out` to generate coverage data.
-   - Visualized coverage with `go tool cover -html=coverage.out`.
+Created unit tests for each handler in `handlers_test.go`:
+
+```go
+// handlers_test.go
+func TestCreateItem(t *testing.T) {
+    // ...setup code...
+    err := CreateItem(...)
+    if err != nil {
+        t.Errorf("expected no error, got %v", err)
+    }
+}
+```
+
+**Coverage Analysis:**
+
+Generated coverage data using `go test -coverprofile=coverage.out` and visualized with `go tool cover -html=coverage.out`.
 
 ## Results & Testing
 
-- All unit tests executed and passed successfully.
-- Coverage report generated and reviewed.
+All unit tests passed successfully with coverage report generated.
 
-**Test Output Example:**
+**Test Output:**
 ```bash
 go test -cover
-# Output:
 # ok   Swe302_p2  0.123s  coverage: 65.7% of statements
 ```
 
 **Explanation:**
-Unit tests validate the correctness of CRUD handlers. Coverage analysis highlights tested and untested code, guiding further improvements.
+
+Unit tests validate CRUD handler correctness. Coverage analysis highlights tested and untested code paths for improvement.
 
 ## Reflection
 
 **Key Learnings:**
-- Practiced Go testing and coverage tools
-- Understood the importance of high coverage for reliability
+- Go testing framework and coverage tools
+- Importance of high coverage for code reliability
 
 **Challenges:**
-- Ensuring all edge cases are covered in tests
-- Interpreting coverage results for improvement
+- Covering all edge cases in tests
+- Interpreting coverage results effectively
 
-**Improvements:**
-- Add more tests for error scenarios
+**Possible Improvements:**
+- Add more error scenario tests
 - Refactor code for better testability
 
 ## Conclusion
 
-Successfully implemented and tested a Go CRUD API, achieving high code coverage and reliable functionality.
+Successfully implemented and tested a Go CRUD API with comprehensive code coverage analysis, achieving reliable functionality.
 
 ## References
 
@@ -100,13 +99,13 @@ Successfully implemented and tested a Go CRUD API, achieving high code coverage 
 
 ## Appendix
 
-### 1. Terminal output
-All unit tests passed:
-![alt text](assets/2.png)
+**Terminal Output:**
 
-### 2. Coverage Report
-Test cases executed and coverage report generated:
-![alt text](assets/1.png)
+![All unit tests passed](assets/2.png)
+
+**Coverage Report:**
+
+![Test coverage visualization](assets/1.png)
 
 
 
