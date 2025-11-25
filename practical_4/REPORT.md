@@ -4,7 +4,6 @@
 
 **Course:** SWE302 - Software Engineering Practice and Tools  
 **Practical:** Practical 4 - Setting up SAST with Snyk in GitHub Actions  
-**Student:** Namgyel Huk  
 **Repository:** [NamgyelHuk708/SWE302_PA4](https://github.com/NamgyelHuk708/SWE302_PA4)  
 **Date:** November 25, 2025
 
