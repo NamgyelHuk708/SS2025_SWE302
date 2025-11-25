@@ -68,6 +68,9 @@ npm run test:k6:cloud:stress
 # Cloud-based endurance test
 npm run test:k6:cloud:soak
 ```
+## HomePage Load 
+
+![alt text](img/5.png)
 
 ## Performance Testing Results
 
