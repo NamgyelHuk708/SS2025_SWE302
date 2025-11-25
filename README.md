@@ -1,7 +1,7 @@
 # SS2025_SWE302
 Practical Report – Table of Contents
 
-Objective
+Objective.
 
 Briefly state the aim of the practical and intended learning outcomes.
 
